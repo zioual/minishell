@@ -6,7 +6,7 @@
 /*   By: yzioual <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 14:13:02 by yzioual           #+#    #+#             */
-/*   Updated: 2024/03/14 16:50:53 by yzioual          ###   ########.fr       */
+/*   Updated: 2024/03/14 17:11:34 by yzioual          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,45 @@ t_list	*tokenize(const char *s)
 	return (list);
 }
 
+/*
 int main(int ac, char **av)
 {
     print_list(tokenize(av[1]));
+    return 0;
+}
+*/
+
+
+int main() {
+    const char *test_cases[] = {
+        "ls -l /",
+        "echo 'Hello, World!'",
+        "echo \"Hello, World!\"",
+        "ls > output.txt",
+        "ls | grep .txt",
+        "  echo   Hello   World!   ",
+        "echo $PATH",
+        "echo (Hello)",
+        "ls; echo 'Done'",
+        "echo \"Hello\nWorld\"",
+        "",
+        "    "
+    };
+    int num_test_cases = sizeof(test_cases) / sizeof(test_cases[0]);
+
+    for (int i = 0; i < num_test_cases; i++) {
+        printf("Test Case %d:\n", i + 1);
+        printf("Input: \"%s\"\n", test_cases[i]);
+
+        t_list *tokens = tokenize(test_cases[i]);
+        if (tokens == NULL) {
+            printf("Error: Memory allocation failed.\n");
+        } else {
+            printf("Tokens:\n");
+            print_list(tokens);
+        }
+        printf("\n");
+    }
+
     return 0;
 }
